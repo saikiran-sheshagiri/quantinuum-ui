@@ -13,8 +13,6 @@ RUN powershell -Command \
     [Environment]::SetEnvironmentVariable('PATH', $env:PATH, [EnvironmentVariableTarget]::Machine) ; \
     Remove-Item -Path node.zip
 
-#RUN node -v
-#RUN npm -v
 
 RUN npm install -g @angular/cli
 #RUN npm install
@@ -22,12 +20,12 @@ RUN npm install -g @angular/cli
 #ADD ./dist /app
 #WORKDIR /app
 
-ARG source=.
+ARG source=./dist
 RUN md c:\app
 WORKDIR c:/app
 COPY $source c:/app
 
-RUN ng build --prod
+EXPOSE 4200
 
-#CMD [ "build", "start" ]
+CMD [ "npm", "start" ]
 
